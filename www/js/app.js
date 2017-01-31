@@ -17,7 +17,27 @@ angular.module('starter', ['ionic'])
       }
 
 
-      pushNotification = window.plugins.pushNotification;
+      FCMPlugin.onTokenRefresh(function(token){
+        alert( token );
+        console.log(token);
+      });
+
+      FCMPlugin.getToken(function(token){
+        alert(token);
+        console.log(token);
+      });
+
+      FCMPlugin.onNotification(function(data){
+        if(data.wasTapped){
+          //Notification was received on device tray and tapped by the user.
+          alert( JSON.stringify(data) );
+        }else{
+          //Notification was received in foreground. Maybe the user needs to be notified.
+          alert( JSON.stringify(data) );
+        }
+      });
+
+      // pushNotification = window.plugins.pushNotification;
 
       // iOS
       // window.onNotificationAPN = function(e){
@@ -38,7 +58,7 @@ angular.module('starter', ['ionic'])
       //   }
       // };
 
-      window.onNotification = function(e){
+      /*window.onNotification = function(e){
 
         switch(e.event){
           case 'registered':
@@ -53,7 +73,7 @@ angular.module('starter', ['ionic'])
 
           case 'message':
             alert('msg received: ' + e.message);
-            /*
+            /!*
              {
              "message": "Hello this is a push notification",
              "payload": {
@@ -66,7 +86,7 @@ angular.module('starter', ['ionic'])
              "event": "message"
              }
              }
-             */
+             *!/
             break;
 
           case 'error':
@@ -92,7 +112,7 @@ angular.module('starter', ['ionic'])
           'senderID': '408641708792',
           'ecb': 'onNotification'
         }
-      );
+      );*/
 
 
     });
